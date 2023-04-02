@@ -5,13 +5,45 @@ const { Render, Runner, Engine, Bodies, Composite, Composites, Constraint, Mouse
 //Declaration Variables
 
 const { name, posX, posY, radius, physics, grow, maxGrow } = getRandomBird();
+//localStorage.removeItem("level");
+//localStorage.removeItem("levelOnePass");
+let level = localStorage.getItem("level");
+let levelOnePass = localStorage.getItem("levelOnePass");
+let levelTwoPass = false;
+let levelThreePass = false;
+let basePropsw;
+let colsBaseProps;
+let scoreBricks = 0;
 
 characterName.textContent = name;
 
+if(level === null) {
+    level = 1;
+    levelOnePass = false;
+}
+
+console.log(level);
 //Game distribution
 const gameSize = { w: window.innerWidth, h: window.innerHeight };
 const baseProps = { w: 150, h: 20, posX: gameSize.w - 300, posY: gameSize.h - 200 };
-const bricksProps = { w: baseProps.w / 5, h: 30, posX: baseProps.posX - baseProps.w / 2, posY: 50, cols: 5, rows: 10 };
+
+if (level === 1 && !levelOnePass) {
+    basePropsw = baseProps.w / 3;
+    colsBaseProps = 3;
+} 
+
+if (level === '2') {
+    basePropsw = baseProps.w / 4;
+    colsBaseProps = 4;
+} 
+
+if (level === '3') {
+    basePropsw = baseProps.w / 4;
+    colsBaseProps = 4;
+} 
+
+//Game distribution
+const bricksProps = { w: basePropsw, h: 30, posX: baseProps.posX - baseProps.w / 2, posY: 50, cols: colsBaseProps, rows: 10 };
 
 //The library renders the game environment
 const engine = Engine.create();
@@ -55,6 +87,17 @@ Events.on(engine, 'afterUpdate', () => {
     }
 
     score.textContent = bricks.bodies.filter(elm => elm.position.y > gameSize.h).length;
+
+    scoreBricks = bricks.bodies.filter(elm => elm.position.y > gameSize.h).length;
+    console.log(scoreBricks);
+    if (scoreBricks > 20 && level === '1') {
+        level = 2;
+        levelOnePass = true;
+        
+        localStorage.setItem("level", level);
+        localStorage.setItem("levelOnePass", levelOnePass);
+    }
+
 });
 
 //bodies are added
