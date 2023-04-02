@@ -35,5 +35,5 @@ const getRandomBird = () => {
         }
     ]
 
-    return birds[Math.floor(Math.random() * birds.length)]
+    return birds;
 }
