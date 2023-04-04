@@ -4,14 +4,57 @@ const { Render, Runner, Engine, Bodies, Composite, Composites, Constraint, Mouse
 
 //Declaration Variables
 
-const { name, posX, posY, radius, physics, grow, maxGrow } = getRandomBird();
+let birds = getRandomBird();
+
+const { name, posX, posY, radius, physics, grow, maxGrow } = birds[0];
+//localStorage.removeItem("level");
+//localStorage.removeItem("levelOnePass");
+let level = sessionStorage.getItem("level");
+let levelOnePass = sessionStorage.getItem("levelOnePass");
+let levelTwoPass = sessionStorage.getItem("levelTwoPass");
+let levelThreePass = sessionStorage.getItem("levelThreePass");;
+let basePropsw;
+let colsBaseProps;
+let scoreBricks = 0;
 
 characterName.textContent = name;
 
+if(level === null) {
+    level = '1';
+    levelOnePass = false;
+}
+
+
+if(levelTwoPass === null) {
+    levelTwoPass = false;
+}
+
+if(levelThreePass === null) {
+    levelThreePass = false;
+}
+console.log(level);
+console.log(levelThreePass);
 //Game distribution
 const gameSize = { w: window.innerWidth, h: window.innerHeight };
 const baseProps = { w: 150, h: 20, posX: gameSize.w - 300, posY: gameSize.h - 200 };
-const bricksProps = { w: baseProps.w / 5, h: 30, posX: baseProps.posX - baseProps.w / 2, posY: 50, cols: 5, rows: 10 };
+
+if (level === '1' && levelOnePass === false) {
+    basePropsw = baseProps.w / 3;
+    colsBaseProps = 3;
+} 
+
+if (level === '2' && levelTwoPass === false) {
+    basePropsw = baseProps.w / 4;
+    colsBaseProps = 4;
+} 
+
+if (level === '3' && levelThreePass === false) {
+    basePropsw = baseProps.w / 5;
+    colsBaseProps = 5;
+} 
+
+//Game distribution
+const bricksProps = { w: basePropsw, h: 30, posX: baseProps.posX - baseProps.w / 2, posY: 50, cols: colsBaseProps, rows: 10 };
 
 //The library renders the game environment
 const engine = Engine.create();
@@ -55,6 +98,34 @@ Events.on(engine, 'afterUpdate', () => {
     }
 
     score.textContent = bricks.bodies.filter(elm => elm.position.y > gameSize.h).length;
+
+    scoreBricks = bricks.bodies.filter(elm => elm.position.y > gameSize.h).length;
+    console.log(scoreBricks);
+    if (scoreBricks > 15 && level === '1') {
+        level = 2;
+        levelOnePass = true;
+        
+        sessionStorage.setItem("level", level);
+        sessionStorage.setItem("levelOnePass", levelOnePass);
+        
+    } 
+
+    if (scoreBricks > 20 && level === '2') {
+        level = 3;
+        levelTwoPass = true;
+        
+        sessionStorage.setItem("level", level);
+        sessionStorage.setItem("levelTwoPass", levelTwoPass);
+        
+    } 
+
+    if (scoreBricks > 25 && level === '3') {
+        levelThreePass = true;
+        sessionStorage.setItem("levelThreePass", levelThreePass);
+        
+    } 
+
+
 });
 
 //bodies are added
