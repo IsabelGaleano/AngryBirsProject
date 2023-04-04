@@ -6,7 +6,7 @@ const { Render, Runner, Engine, Bodies, Composite, Composites, Constraint, Mouse
 
 let birds = getRandomBird();
 
-const { name, posX, posY, radius, physics, grow, maxGrow } = birds[0];
+const { name, posX, posY, radius, physics, grow, maxGrow } = birds[1];
 //localStorage.removeItem("level");
 //localStorage.removeItem("levelOnePass");
 let level = sessionStorage.getItem("level");
