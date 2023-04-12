@@ -5,8 +5,6 @@ const { Render, Runner, Engine, Bodies, Composite, Composites, Constraint, Mouse
 //Declaration Variables
 
 let birds = getRandomBird();
-
-const { name, posX, posY, radius, physics, grow, maxGrow } = birds[1];
 //localStorage.removeItem("level");
 //localStorage.removeItem("levelOnePass");
 let level = sessionStorage.getItem("level");
@@ -16,24 +14,35 @@ let levelThreePass = sessionStorage.getItem("levelThreePass");;
 let basePropsw;
 let colsBaseProps;
 let scoreBricks = 0;
+let positionBird;
+
+if (level === null || level === '1') {
+    positionBird = 0;
+
+} else if (level === '2') {
+    positionBird = 1;
+} else {
+    positionBird = 2;
+}
+
+const { name, posX, posY, radius, physics, grow, maxGrow } = birds[positionBird];
 
 characterName.textContent = name;
 
-if(level === null) {
+if (level === null) {
     level = '1';
     levelOnePass = false;
 }
 
 
-if(levelTwoPass === null) {
+if (levelTwoPass === null) {
     levelTwoPass = false;
 }
 
-if(levelThreePass === null) {
+if (levelThreePass === null) {
     levelThreePass = false;
 }
-console.log(level);
-console.log(levelThreePass);
+
 //Game distribution
 const gameSize = { w: window.innerWidth, h: window.innerHeight };
 const baseProps = { w: 150, h: 20, posX: gameSize.w - 300, posY: gameSize.h - 200 };
@@ -41,17 +50,17 @@ const baseProps = { w: 150, h: 20, posX: gameSize.w - 300, posY: gameSize.h - 20
 if (level === '1' && levelOnePass === false) {
     basePropsw = baseProps.w / 3;
     colsBaseProps = 3;
-} 
+}
 
 if (level === '2' && levelTwoPass === false) {
     basePropsw = baseProps.w / 4;
     colsBaseProps = 4;
-} 
+}
 
 if (level === '3' && levelThreePass === false) {
     basePropsw = baseProps.w / 5;
     colsBaseProps = 5;
-} 
+}
 
 //Game distribution
 const bricksProps = { w: basePropsw, h: 30, posX: baseProps.posX - baseProps.w / 2, posY: 50, cols: colsBaseProps, rows: 10 };
@@ -61,7 +70,12 @@ const engine = Engine.create();
 const render = Render.create({
     element: document.body,
     engine,
-    options: { width: gameSize.w, height: gameSize.h }
+    options: { 
+        width: gameSize.w, 
+        height: gameSize.h,
+        background: 'transparent',
+        wireframes: false, // Para que no aparezcan los contornos de los objetos
+        background: 'url(FondoCenfoShooters.png)' }
 });
 
 const base = Bodies.rectangle(baseProps.posX, baseProps.posY, baseProps.w, baseProps.h, { isStatic: true });
@@ -104,26 +118,26 @@ Events.on(engine, 'afterUpdate', () => {
     if (scoreBricks > 15 && level === '1') {
         level = 2;
         levelOnePass = true;
-        
+
         sessionStorage.setItem("level", level);
         sessionStorage.setItem("levelOnePass", levelOnePass);
-        
-    } 
+
+    }
 
     if (scoreBricks > 20 && level === '2') {
         level = 3;
         levelTwoPass = true;
-        
+
         sessionStorage.setItem("level", level);
         sessionStorage.setItem("levelTwoPass", levelTwoPass);
-        
-    } 
+
+    }
 
     if (scoreBricks > 25 && level === '3') {
         levelThreePass = true;
         sessionStorage.setItem("levelThreePass", levelThreePass);
-        
-    } 
+
+    }
 
 
 });
