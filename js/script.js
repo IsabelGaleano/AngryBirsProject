@@ -15,14 +15,41 @@ let basePropsw;
 let colsBaseProps;
 let scoreBricks = 0;
 let positionBird;
+let birdR;
 
+const terrence = {
+    sprite: {
+        texture: 'img/terence.png',
+        xScale: 0.5,
+        yScale: 0.5
+    }
+};
+
+const chuck = {
+    sprite: {
+        texture: 'img/chuck.png',
+        xScale: 0.4,
+        yScale: 0.4
+    }
+};
+
+const bubbles = {
+    sprite: {
+        texture: 'img/bubbles.png',
+        xScale: 0.3,
+        yScale: 0.3
+    }
+};
 if (level === null || level === '1') {
     positionBird = 0;
+    birdR= terrence;
 
 } else if (level === '2') {
     positionBird = 1;
+    birdR= chuck;
 } else {
     positionBird = 2;
+    birdR= bubbles;
 }
 
 const { name, posX, posY, radius, physics, grow, maxGrow } = birds[positionBird];
@@ -84,8 +111,10 @@ const bricks = Composites.stack(bricksProps.posX, bricksProps.posY, bricksProps.
     return Bodies.rectangle(x, y, bricksProps.w, bricksProps.h);
 });
 
-const bird = Bodies.circle(posX, posY, radius, physics);
-
+const bird = Bodies.circle(posX, posY, radius, {
+    render: birdR,
+    ...physics
+});
 const shooter = Constraint.create({
     pointA: { x: posX, y: posY },
     bodyB: bird
