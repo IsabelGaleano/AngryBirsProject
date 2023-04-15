@@ -6,24 +6,6 @@ body {
     font-family: sans-serif;
 }
 
-#info {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    z-index: 1;
-    border: 1px solid;
-    text-align: center;
-    color: white;
-}
-
-#info h1 {
-    padding: 10px;
-    color: black;
-    background-color: white;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
-
 button {
     width: 100%;
     padding: 10px;
@@ -33,4 +15,125 @@ button {
 
 hr {
     border-color: white;
+}
+
+/* score panel */
+#scorePanel {
+    position: fixed;
+    margin: 1rem;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    height: 15rem;
+    text-align: center;
+    background-color: #f8f9fa;
+    border-radius: 1rem;
+    border: 0.1rem solid #dee2e6;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
+                0 2px 4px rgba(0, 0, 0, 0.15),
+                0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+#scorePanel h1 {
+    font-family: 'Alkatra', cursive;
+    font-size: 3rem;
+    font-weight: 600;
+    color: black;
+    padding: 0.5rem;
+}
+
+#scorePanel button {
+    width: 10rem;
+}
+
+/* start panel */
+.container-block {
+    display: block
+}
+
+.hidden {
+    display: none;
+}
+
+.start-panel-container {
+    height: 100vh;
+    background-image: url('../FondoCenfoShooters.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.panel-container {
+    width: 30rem;
+    height: 30rem;
+    border-radius: 1rem;
+    background-color: #f8f9fa;
+    border: 0.1rem solid #dee2e6;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
+                0 2px 4px rgba(0, 0, 0, 0.15),
+                0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.panel-container h1 {
+    font-family: 'Alkatra', cursive;
+    font-size: 3rem;
+    font-weight: 600;
+}
+
+.panel-container button {
+    width: 20rem;
+}
+
+.panel-container input {
+    width: 20rem;
+    border-radius: 1rem;
+    padding: 10px;
+    margin: 0;
+    border: 0;
+    text-align: center;
+}
+
+/* level container */
+.level-container {
+    position: fixed;
+    margin: 1rem;
+    bottom: 0px;
+    left: 0px;
+    z-index: 1;
+    width: 15rem;
+    height: 5rem;
+    border-radius: 1rem;
+    background-color: #f8f9fa;
+    border: 0.1rem solid #dee2e6;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
+                0 2px 4px rgba(0, 0, 0, 0.15),
+                0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.level-container h1{
+    font-family: 'Alkatra', cursive;
+    font-size: 3rem;
+    font-weight: 600;
+}
+
+/* player container */
+.player-container {
+    position: fixed;
+    margin: 1rem;
+    top: 0px;
+    right: 0px;
+    z-index: 1;
+    height: 5rem;
+    border-radius: 1rem;
+    background-color: #f8f9fa;
+    border: 0.1rem solid #dee2e6;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
+                0 2px 4px rgba(0, 0, 0, 0.15),
+                0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.player-container h1{
+    font-family: 'Alkatra', cursive;
+    font-size: 3rem;
+    font-weight: 600;
 }

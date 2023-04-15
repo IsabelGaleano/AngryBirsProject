@@ -5,8 +5,6 @@ const { Render, Runner, Engine, Bodies, Composite, Composites, Constraint, Mouse
 //Declaration Variables
 
 let birds = getRandomBird();
-//localStorage.removeItem("level");
-//localStorage.removeItem("levelOnePass");
 let level = sessionStorage.getItem("level");
 let levelOnePass = sessionStorage.getItem("levelOnePass");
 let levelTwoPass = sessionStorage.getItem("levelTwoPass");
@@ -95,7 +93,7 @@ const bricksProps = { w: basePropsw, h: 30, posX: baseProps.posX - baseProps.w /
 //The library renders the game environment
 const engine = Engine.create();
 const render = Render.create({
-    element: document.body,
+    element: document.getElementById('gamePanel'),
     engine,
     options: { 
         width: gameSize.w, 
