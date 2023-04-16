@@ -99,8 +99,8 @@ const render = Render.create({
         width: gameSize.w, 
         height: gameSize.h,
         background: 'transparent',
-        wireframes: false, // Para que no aparezcan los contornos de los objetos
-        background: 'url(FondoCenfoShooters.png)' }
+        wireframes: false // Para que no aparezcan los contornos de los objetos
+    }
 });
 
 const base = Bodies.rectangle(baseProps.posX, baseProps.posY, baseProps.w, baseProps.h, { isStatic: true });
