@@ -4,6 +4,10 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+    background-image: url(../FondoCenfoShooters.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 button {
@@ -16,7 +20,9 @@ button {
 hr {
     border-color: white;
 }
-
+canvas{
+    height: 800px !important;
+}
 /* score panel */
 #scorePanel {
     position: fixed;
