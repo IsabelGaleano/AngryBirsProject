@@ -5,8 +5,6 @@ const { Render, Runner, Engine, Bodies, Composite, Composites, Constraint, Mouse
 //Declaration Variables
 
 let birds = getRandomBird();
-//localStorage.removeItem("level");
-//localStorage.removeItem("levelOnePass");
 let level = sessionStorage.getItem("level");
 let levelOnePass = sessionStorage.getItem("levelOnePass");
 let levelTwoPass = sessionStorage.getItem("levelTwoPass");
@@ -15,14 +13,41 @@ let basePropsw;
 let colsBaseProps;
 let scoreBricks = 0;
 let positionBird;
+let birdR;
 
+const terrence = {
+    sprite: {
+        texture: 'img/terence.png',
+        xScale: 0.5,
+        yScale: 0.5
+    }
+};
+
+const chuck = {
+    sprite: {
+        texture: 'img/chuck.png',
+        xScale: 0.4,
+        yScale: 0.4
+    }
+};
+
+const bubbles = {
+    sprite: {
+        texture: 'img/bubbles.png',
+        xScale: 0.3,
+        yScale: 0.3
+    }
+};
 if (level === null || level === '1') {
     positionBird = 0;
+    birdR= terrence;
 
 } else if (level === '2') {
     positionBird = 1;
+    birdR= chuck;
 } else {
     positionBird = 2;
+    birdR= bubbles;
 }
 
 const { name, posX, posY, radius, physics, grow, maxGrow } = birds[positionBird];
@@ -68,14 +93,14 @@ const bricksProps = { w: basePropsw, h: 30, posX: baseProps.posX - baseProps.w /
 //The library renders the game environment
 const engine = Engine.create();
 const render = Render.create({
-    element: document.body,
+    element: document.getElementById('gamePanel'),
     engine,
     options: { 
         width: gameSize.w, 
         height: gameSize.h,
         background: 'transparent',
-        wireframes: false, // Para que no aparezcan los contornos de los objetos
-        background: 'url(FondoCenfoShooters.png)' }
+        wireframes: false // Para que no aparezcan los contornos de los objetos
+    }
 });
 
 const base = Bodies.rectangle(baseProps.posX, baseProps.posY, baseProps.w, baseProps.h, { isStatic: true });
@@ -84,8 +109,10 @@ const bricks = Composites.stack(bricksProps.posX, bricksProps.posY, bricksProps.
     return Bodies.rectangle(x, y, bricksProps.w, bricksProps.h);
 });
 
-const bird = Bodies.circle(posX, posY, radius, physics);
-
+const bird = Bodies.circle(posX, posY, radius, {
+    render: birdR,
+    ...physics
+});
 const shooter = Constraint.create({
     pointA: { x: posX, y: posY },
     bodyB: bird
